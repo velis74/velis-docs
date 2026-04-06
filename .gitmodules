@@ -1,0 +1,12 @@
+[submodule "libs/vitepress-plugin-crosslinks"]
+	path = libs/vitepress-plugin-crosslinks
+	url = git@github.com:velis74/vitepress-plugin-crosslinks.git
+[submodule "libs/vue-ionicon"]
+	path = libs/vue-ionicon
+	url = git@github.com:velis74/vue-ionicon.git
+[submodule "libs/dynamicforms/vue-forms"]
+	path = libs/dynamicforms/vue-forms
+	url = git@github.com:dynamicforms/vue-forms.git
+[submodule "libs/dynamicforms/vuetify-inputs"]
+	path = libs/dynamicforms/vuetify-inputs
+	url = git@github.com:dynamicforms/vuetify-inputs.git

@@ -1,0 +1,19 @@
+{
+  "name": "velis-docs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "docs"
+  ],
+  "scripts": {
+    "refresh": "node scripts/refresh.mjs",
+    "refresh:dist": "node scripts/refresh.mjs --dist-only",
+    "docs:dev": "npm run refresh:dist && npm run docs:dev -w docs",
+    "docs:build": "npm run refresh && npm run docs:build -w docs && rm -rf dist && mv docs/.vitepress/dist/ dist",
+    "docs:preview": "npm run docs:preview -w docs"
+  },
+  "devDependencies": {
+    "@types/node": "^24.12.2"
+  }
+}

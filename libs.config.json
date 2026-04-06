@@ -1,0 +1,32 @@
+{
+  "libs": [
+    {
+      "name": "vitepress-plugin-crosslinks",
+      "type": "readme",
+      "submodule": "libs/vitepress-plugin-crosslinks",
+      "readme": "readme.md"
+    },
+    {
+      "name": "vue-cached-icon",
+      "type": "readme",
+      "submodule": "libs/vue-ionicon",
+      "readme": "README.md"
+    },
+    {
+      "name": "vue-forms",
+      "type": "dist",
+      "group": "dynamicforms",
+      "submodule": "libs/dynamicforms/vue-forms",
+      "distOutput": "docs/.vitepress/dist",
+      "docsWorkspace": "docs"
+    },
+    {
+      "name": "vuetify-inputs",
+      "type": "dist",
+      "group": "dynamicforms",
+      "submodule": "libs/dynamicforms/vuetify-inputs",
+      "distOutput": "docs/.vitepress/dist",
+      "docsWorkspace": "docs"
+    }
+  ]
+}
