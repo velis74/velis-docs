@@ -7,6 +7,7 @@
     "docs"
   ],
   "scripts": {
+    "build": "npm run docs:build",
     "refresh": "node scripts/refresh.mjs",
     "refresh:dist": "node scripts/refresh.mjs --dist-only",
     "docs:dev": "npm run refresh:dist && npm run docs:dev -w docs",
