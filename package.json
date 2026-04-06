@@ -7,7 +7,7 @@
     "docs"
   ],
   "scripts": {
-    "build": "npm run docs:build",
+    "build": "npm run docs:build -w docs && rm -rf dist && mv docs/.vitepress/dist/ dist",
     "refresh": "node scripts/refresh.mjs",
     "refresh:dist": "node scripts/refresh.mjs --dist-only",
     "docs:dev": "npm run refresh:dist && npm run docs:dev -w docs",
