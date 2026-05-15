@@ -27,6 +27,22 @@
       "submodule": "libs/dynamicforms/vuetify-inputs",
       "distOutput": "docs/.vitepress/dist",
       "docsWorkspace": "docs"
+    },
+    {
+      "name": "vuetify-modal-form-kit",
+      "type": "dist",
+      "group": "dynamicforms",
+      "submodule": "libs/dynamicforms/vuetify-modal-form-kit",
+      "distOutput": "docs/.vitepress/dist",
+      "docsWorkspace": "docs"
+    },
+    {
+      "name": "vue-grid",
+      "type": "dist",
+      "group": "dynamicforms",
+      "submodule": "libs/dynamicforms/vue-grid",
+      "distOutput": "docs/.vitepress/dist",
+      "docsWorkspace": "docs"
     }
   ]
 }

@@ -10,3 +10,9 @@
 [submodule "libs/dynamicforms/vuetify-inputs"]
 	path = libs/dynamicforms/vuetify-inputs
 	url = git@github.com:dynamicforms/vuetify-inputs.git
+[submodule "libs/dynamicforms/vuetify-modal-form-kit"]
+	path = libs/dynamicforms/vuetify-modal-form-kit
+	url = git@github.com:dynamicforms/vuetify-modal-form-kit.git
+[submodule "libs/dynamicforms/vue-grid"]
+	path = libs/dynamicforms/vue-grid
+	url = git@github.com:dynamicforms/vue-grid.git
