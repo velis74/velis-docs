@@ -44,6 +44,14 @@
       "submodule": "libs/dynamicforms/vue-grid",
       "distOutput": "docs/.vitepress/dist",
       "docsWorkspace": "docs"
+    },
+    {
+      "name": "fastapi-viewsets",
+      "type": "dist",
+      "group": "dynamicforms",
+      "submodule": "libs/dynamicforms/fastapi-viewsets",
+      "distOutput": "docs/.vitepress/dist",
+      "docsWorkspace": "docs"
     }
   ]
 }

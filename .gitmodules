@@ -16,3 +16,6 @@
 [submodule "libs/dynamicforms/vue-grid"]
 	path = libs/dynamicforms/vue-grid
 	url = git@github.com:dynamicforms/vue-grid.git
+[submodule "libs/dynamicforms/fastapi-viewsets"]
+	path = libs/dynamicforms/fastapi-viewsets
+	url = git@github.com:dynamicforms/fastapi-viewsets.git

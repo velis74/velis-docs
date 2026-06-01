@@ -27,6 +27,11 @@ features:
              with seamless integration into the DynamicForms ecosystem.
     link: /dynamicforms/vue-grid/
     linkText: Read docs
+  - title: fastapi-viewsets
+    details: Django REST Framework–style viewsets for FastAPI, Celery and Vue/TypeScript. Full-stack
+             ViewSet library with Python mixins for FastAPI on the backend and TypeScript bindings for Vue.
+    link: /dynamicforms/fastapi-viewsets/
+    linkText: Read docs
 ---
 
 ## About DynamicForms
@@ -43,3 +48,4 @@ renders it, validates it, and handles submission for you.
 | [vuetify-inputs](/dynamicforms/vuetify-inputs/) | Vuetify-based visual input components | [Docs](/dynamicforms/vuetify-inputs/) |
 | [vuetify-modal-form-kit](/dynamicforms/vuetify-modal-form-kit/) | Programmatic dialog & modal form management | [Docs](/dynamicforms/vuetify-modal-form-kit/) |
 | [vue-grid](/dynamicforms/vue-grid/) | Data grid component for tabular data display | [Docs](/dynamicforms/vue-grid/) |
+| [fastapi-viewsets](/dynamicforms/fastapi-viewsets/) | Full-stack viewsets for FastAPI and Vue/TypeScript | [Docs](/dynamicforms/fastapi-viewsets/) |
