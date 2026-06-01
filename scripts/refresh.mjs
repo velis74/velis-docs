@@ -20,6 +20,12 @@ for (const lib of config.libs) {
     mkdirSync(dirname(dest), { recursive: true });
     copyFileSync(src, dest);
     console.log(`  copied ${lib.submodule}/${lib.readme} → docs/${lib.name}.md`);
+    for (const extra of lib.extraFiles ?? []) {
+      const extraSrc = join(root, lib.submodule, extra);
+      const extraDest = join(root, 'docs', extra);
+      copyFileSync(extraSrc, extraDest);
+      console.log(`  copied ${lib.submodule}/${extra} → docs/${extra}`);
+    }
   } else if (lib.type === 'dist') {
     const submoduleDir = join(root, lib.submodule);
     const urlBase = lib.group ? `/${lib.group}/${lib.name}/` : `/${lib.name}/`;

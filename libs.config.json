@@ -10,7 +10,8 @@
       "name": "vue-cached-icon",
       "type": "readme",
       "submodule": "libs/vue-ionicon",
-      "readme": "README.md"
+      "readme": "README.md",
+      "extraFiles": ["demo.gif"]
     },
     {
       "name": "vue-forms",

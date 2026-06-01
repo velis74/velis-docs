@@ -7,5 +7,6 @@
 **/.vitepress/cache
 **/.vitepress/dist
 /docs/*.md
+/docs/*.gif
 !/docs/index.md
 /docs/public/dynamicforms/
