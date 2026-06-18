@@ -19,3 +19,6 @@
 [submodule "libs/dynamicforms/fastapi-viewsets"]
 	path = libs/dynamicforms/fastapi-viewsets
 	url = git@github.com:dynamicforms/fastapi-viewsets.git
+[submodule "libs/configurable-redlock"]
+	path = libs/configurable-redlock
+	url = https://github.com/velis74/configurable-redlock

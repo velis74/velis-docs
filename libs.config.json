@@ -52,6 +52,12 @@
       "submodule": "libs/dynamicforms/fastapi-viewsets",
       "distOutput": "docs/.vitepress/dist",
       "docsWorkspace": "docs"
+    },
+    {
+      "name": "configurable-redlock",
+      "type": "readme",
+      "submodule": "libs/configurable-redlock",
+      "readme": "README.md"
     }
   ]
 }

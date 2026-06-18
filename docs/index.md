@@ -20,6 +20,11 @@ features:
              :project-name:/some/path in markdown and the plugin replaces it with the absolute URL for that project.
     link: /vitepress-plugin-crosslinks
     linkText: Read docs
+  - title: configurable-redlock
+    details: A Python distributed locking library built on Redis. Provides a cleaner API than pottery's Redlock,
+             "silent skip" to bypass locked code blocks without try/except, and Redis-based lock contention statistics.
+    link: /configurable-redlock
+    linkText: Read docs
   - title: DynamicForms
     details: A Vue 3 ecosystem for building schema-driven forms. Define your form as data and let DynamicForms
              handle rendering, validation, and layout. Includes vue-forms as the core package.
