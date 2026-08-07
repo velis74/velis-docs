@@ -6,13 +6,24 @@ import { execSync } from 'child_process';
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const config = JSON.parse(readFileSync(join(root, 'libs.config.json'), 'utf-8'));
 const distOnly = process.argv.includes('--dist-only');
+const targetLib = process.argv.includes('--lib') ? process.argv[process.argv.indexOf('--lib') + 1] : null;
 
-if (!distOnly) {
+if (!distOnly && !targetLib) {
   console.log('Updating git submodules...');
   execSync('git submodule update --init --remote --force', { cwd: root, stdio: 'inherit' });
+} else if (targetLib) {
+  const lib = config.libs.find(l => l.name === targetLib);
+  if (lib) {
+    console.log(`Updating git submodule for ${targetLib}...`);
+    execSync(`git submodule update --init --remote --force ${lib.submodule}`, { cwd: root, stdio: 'inherit' });
+  } else {
+    console.error(`Library ${targetLib} not found in libs.config.json`);
+    process.exit(1);
+  }
 }
 
 for (const lib of config.libs) {
+  if (targetLib && lib.name !== targetLib) continue;
   if (lib.type === 'readme' && distOnly) continue;
   if (lib.type === 'readme') {
     const src = join(root, lib.submodule, lib.readme);

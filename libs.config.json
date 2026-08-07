@@ -58,6 +58,18 @@
       "type": "readme",
       "submodule": "libs/configurable-redlock",
       "readme": "README.md"
+    },
+    {
+      "name": "incremental-coverage-check",
+      "type": "readme",
+      "submodule": "libs/incremental-coverage-check",
+      "readme": "README.md"
+    },
+    {
+      "name": "allowances",
+      "type": "dist",
+      "submodule": "libs/allowances",
+      "distOutput": "docs/.vitepress/dist"
     }
   ]
 }

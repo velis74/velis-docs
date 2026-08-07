@@ -1,24 +1,40 @@
 [submodule "libs/vitepress-plugin-crosslinks"]
 	path = libs/vitepress-plugin-crosslinks
 	url = git@github.com:velis74/vitepress-plugin-crosslinks.git
+	ignore = untracked
 [submodule "libs/vue-ionicon"]
 	path = libs/vue-ionicon
 	url = git@github.com:velis74/vue-ionicon.git
+	ignore = untracked
 [submodule "libs/dynamicforms/vue-forms"]
 	path = libs/dynamicforms/vue-forms
 	url = git@github.com:dynamicforms/vue-forms.git
+	ignore = untracked
 [submodule "libs/dynamicforms/vuetify-inputs"]
 	path = libs/dynamicforms/vuetify-inputs
 	url = git@github.com:dynamicforms/vuetify-inputs.git
+	ignore = untracked
 [submodule "libs/dynamicforms/vuetify-modal-form-kit"]
 	path = libs/dynamicforms/vuetify-modal-form-kit
 	url = git@github.com:dynamicforms/vuetify-modal-form-kit.git
+	ignore = untracked
 [submodule "libs/dynamicforms/vue-grid"]
 	path = libs/dynamicforms/vue-grid
 	url = git@github.com:dynamicforms/vue-grid.git
+	ignore = untracked
 [submodule "libs/dynamicforms/fastapi-viewsets"]
 	path = libs/dynamicforms/fastapi-viewsets
 	url = git@github.com:dynamicforms/fastapi-viewsets.git
+	ignore = untracked
 [submodule "libs/configurable-redlock"]
 	path = libs/configurable-redlock
 	url = https://github.com/velis74/configurable-redlock
+	ignore = untracked
+[submodule "libs/incremental-coverage-check"]
+	path = libs/incremental-coverage-check
+	url = https://github.com/velis74/incremental-coverage-check
+	ignore = untracked
+[submodule "libs/allowances"]
+	path = libs/allowances
+	url = https://github.com/velis74/allowances
+	ignore = untracked

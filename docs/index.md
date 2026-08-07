@@ -25,6 +25,16 @@ features:
              "silent skip" to bypass locked code blocks without try/except, and Redis-based lock contention statistics.
     link: /configurable-redlock
     linkText: Read docs
+  - title: incremental-coverage-check
+    details: A GitHub Action that fails a pull request when the lines it changes are not covered by tests.
+             Grades only the diff, merges multiple coverage formats, and posts self-updating reports.
+    link: /incremental-coverage-check
+    linkText: Read docs
+  - title: allowances
+    details: Grants and budgets, enforced and auditable. Ask "may this happen, and can they afford it?" — 
+             get an answer, a ledger entry, and a way to undo it. Storage-agnostic, with a Django backend.
+    link: /allowances/
+    linkText: Read docs
   - title: DynamicForms
     details: A Vue 3 ecosystem for building schema-driven forms. Define your form as data and let DynamicForms
              handle rendering, validation, and layout. Includes vue-forms as the core package.
