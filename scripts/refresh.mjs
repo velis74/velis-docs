@@ -1,4 +1,4 @@
-import { readFileSync, copyFileSync, mkdirSync, cpSync, rmSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, copyFileSync, mkdirSync, cpSync, rmSync, existsSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
@@ -22,6 +22,14 @@ if (!distOnly && !targetLib) {
   }
 }
 
+// README-ji submodulov kažejo na datoteke poleg sebe v izvornem repozitoriju (LICENSE, CONTRIBUTING, ...),
+// ki jih v dokumentacijo ne kopiramo. V buildani dokumentaciji naj to ostane samo besedilo, ne link.
+function stripRepoFileLinks(markdown, extraFiles) {
+  return markdown.replace(/\[([^\]]+)\]\((?:\.\/)?([A-Za-z0-9_.-]+)\)/g, (match, text, target) =>
+    target.endsWith('.md') || extraFiles.includes(target) ? match : text
+  );
+}
+
 for (const lib of config.libs) {
   if (targetLib && lib.name !== targetLib) continue;
   if (lib.type === 'readme' && distOnly) continue;
@@ -29,7 +37,7 @@ for (const lib of config.libs) {
     const src = join(root, lib.submodule, lib.readme);
     const dest = join(root, 'docs', `${lib.name}.md`);
     mkdirSync(dirname(dest), { recursive: true });
-    copyFileSync(src, dest);
+    writeFileSync(dest, stripRepoFileLinks(readFileSync(src, 'utf-8'), lib.extraFiles ?? []));
     console.log(`  copied ${lib.submodule}/${lib.readme} → docs/${lib.name}.md`);
     for (const extra of lib.extraFiles ?? []) {
       const extraSrc = join(root, lib.submodule, extra);

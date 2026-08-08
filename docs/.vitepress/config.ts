@@ -61,7 +61,10 @@ export default defineConfig({
   titleTemplate: ':title - Velis Docs',
   description: 'Documentation hub for Velis projects',
   ignoreDeadLinks: [
-    /^https?:\/\/localhost/
+    /^https?:\/\/localhost/,
+    // README-ji submodulov kažejo na datoteke poleg sebe v izvornem repozitoriju (npr. ./LICENSE),
+    // ki jih v dokumentacijo ne kopiramo
+    /^(\.\/)?LICENSE$/
   ],
   themeConfig: {
     logo: '/images/logo_icon.png',
