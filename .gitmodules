@@ -38,3 +38,7 @@
 	path = libs/allowances
 	url = https://github.com/velis74/allowances
 	ignore = untracked
+[submodule "libs/muxws"]
+	path = libs/muxws
+	url = https://github.com/velis74/muxws
+	ignore = untracked

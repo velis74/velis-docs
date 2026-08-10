@@ -35,6 +35,12 @@ features:
              get an answer, a ledger entry, and a way to undo it. Storage-agnostic, with a Django backend.
     link: /allowances/
     linkText: Read docs
+  - title: muxws
+    details: HTTP/3 stream semantics over a WebSocket. Many independent, cancellable, bidirectional streams on
+             one socket, either end able to open one — no QUIC or HTTP/3 stack needed. Python and TypeScript ports,
+             with a frozen wire spec and conformance fixtures.
+    link: /muxws/
+    linkText: Read docs
   - title: DynamicForms
     details: A Vue 3 ecosystem for building schema-driven forms. Define your form as data and let DynamicForms
              handle rendering, validation, and layout. Includes vue-forms as the core package.

@@ -70,6 +70,13 @@
       "type": "dist",
       "submodule": "libs/allowances",
       "distOutput": "docs/.vitepress/dist"
+    },
+    {
+      "name": "muxws",
+      "type": "dist",
+      "submodule": "libs/muxws",
+      "distOutput": "docs/.vitepress/dist",
+      "docsWorkspace": "docs"
     }
   ]
 }
