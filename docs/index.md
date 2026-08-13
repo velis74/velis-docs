@@ -41,6 +41,12 @@ features:
              with a frozen wire spec and conformance fixtures.
     link: /muxws/
     linkText: Read docs
+  - title: vue-i18n-python
+    details: An unofficial Python port of vue-i18n. Same JSON message files, same API, same behaviour —
+             so a Vue front end and a Python back end read one set of translations and produce the same
+             strings. Verified against real vue-i18n with recorded conformance fixtures.
+    link: /vue-i18n-python/
+    linkText: Read docs
   - title: DynamicForms
     details: A Vue 3 ecosystem for building schema-driven forms. Define your form as data and let DynamicForms
              handle rendering, validation, and layout. Includes vue-forms as the core package.

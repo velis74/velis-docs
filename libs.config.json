@@ -77,6 +77,13 @@
       "submodule": "libs/muxws",
       "distOutput": "docs/.vitepress/dist",
       "docsWorkspace": "docs"
+    },
+    {
+      "name": "vue-i18n-python",
+      "type": "dist",
+      "submodule": "libs/vue-i18n-python",
+      "distOutput": "docs/.vitepress/dist",
+      "docsWorkspace": "docs"
     }
   ]
 }
