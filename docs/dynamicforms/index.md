@@ -5,6 +5,9 @@ hero:
   name: "DynamicForms"
   text: "Vue form ecosystem"
   tagline: A collection of packages for building dynamic, schema-driven forms in Vue 3.
+  image:
+    src: /images/dynamicforms-logo.png
+    alt: DynamicForms
 
 features:
   - title: vue-forms
