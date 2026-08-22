@@ -40,4 +40,4 @@ Seznam knjižnic v polju `libs`. Vsak vnos vsebuje:
 - `libs/` je za VitePress **off-limits** — brez izjem
 - Ko dodajaš nov submodule: `git submodule add <url> libs/<ime>` + vnos v `libs.config.json` + feature kartica v
   `index.md`. Priporočljivo je dodati `ignore = untracked` v `.gitmodules` za nov submodule, da lokalni buildi ne smetijo statusa.
-- po dodajanju kliči `npm run refresh` (ali `npm run refresh -- --lib <ime>` za hitrejše osveževanje posamezne knjižnice)
+- po dodajanju kliči `npm run refresh` (ali `npm run refresh <ime>` za hitrejše osveževanje posamezne knjižnice)
