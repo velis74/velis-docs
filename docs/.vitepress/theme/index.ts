@@ -3,6 +3,7 @@ import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import 'vuetify/styles'
 import '@mdi/font/css/materialdesignicons.css'
+import './custom.css'
 import libsConfig from '../../../libs.config.json'
 
 const subProjectPrefixes: string[] = (libsConfig.libs as any[])

@@ -1,0 +1,42 @@
+/* Landing page: the first two feature tiles (DynamicForms, muxws) are the flagship projects.
+   They get half-width tiles with larger type, and the rest of the grid starts after a gap. */
+
+.VPHome .VPFeatures .items > .item:nth-child(-n + 2) .VPFeature .box {
+  padding: 32px;
+}
+
+.VPHome .VPFeatures .items > .item:nth-child(-n + 2) .VPFeature .title {
+  line-height: 32px;
+  font-size: 24px;
+}
+
+.VPHome .VPFeatures .items > .item:nth-child(-n + 2) .VPFeature .details {
+  padding-top: 12px;
+  line-height: 28px;
+  font-size: 17px;
+}
+
+.VPHome .VPFeatures .items > .item:nth-child(-n + 2) .VPFeature .link-text-value {
+  font-size: 16px;
+}
+
+.VPHome .VPFeatures .items > .item:nth-child(2) {
+  margin-bottom: 32px;
+}
+
+@media (min-width: 640px) {
+  .VPHome .VPFeatures .items > .item:nth-child(-n + 2) {
+    width: calc(100% / 2);
+    margin-bottom: 32px;
+  }
+
+  .VPHome .VPFeatures .items > .item:nth-child(n + 3) {
+    width: calc(100% / 2);
+  }
+}
+
+@media (min-width: 768px) {
+  .VPHome .VPFeatures .items > .item:nth-child(n + 3) {
+    width: calc(100% / 3);
+  }
+}
