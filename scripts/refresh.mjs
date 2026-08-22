@@ -85,6 +85,11 @@ async function processDistLib(lib) {
   const buildCmd = lib.docsWorkspace
     ? `npm run docs:build -w ${lib.docsWorkspace} -- --base ${urlBase}`
     : `npm run docs:build -- --base ${urlBase}`;
+  // A submodule bump can change dependency ranges (e.g. a peer requirement) between commits.
+  // A leftover node_modules/package-lock.json from the previous checkout can pin versions that
+  // no longer satisfy the new package.json, so npm install has to start from a clean slate.
+  rmSync(join(submoduleDir, 'node_modules'), { recursive: true, force: true });
+  rmSync(join(submoduleDir, 'package-lock.json'), { force: true });
   await runStreamed(lib.name, 'npm install', submoduleDir);
   await runStreamed(lib.name, buildCmd, submoduleDir);
   const builtDir = join(submoduleDir, ...(lib.distOutput ?? '.vitepress/dist').split('/'));
