@@ -21,6 +21,11 @@ features:
     link: /dynamicforms/
     linkText: Explore DynamicForms
   - title: muxws
+    icon:
+      src: /muxws/muxws-icon.svg
+      alt: muxws
+      width: 64
+      height: 64
     details: HTTP/3 stream semantics over a WebSocket. Many independent, cancellable, bidirectional streams on
              one socket, either end able to open one — no QUIC or HTTP/3 stack needed. Python and TypeScript ports,
              with a frozen wire spec and conformance fixtures.

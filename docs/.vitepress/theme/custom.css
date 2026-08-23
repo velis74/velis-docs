@@ -24,22 +24,22 @@
   margin-bottom: 32px;
 }
 
-/* DynamicForms tile: the icon floats top-left so the title sits beside it and the
+/* Flagship tiles: the icon floats top-left so the title sits beside it and the
    description text wraps around it instead of stacking full-width beneath. */
-.VPHome .VPFeatures .items > .item:nth-child(1) .VPFeature .box {
+.VPHome .VPFeatures .items > .item:nth-child(-n + 3) .VPFeature .box {
   display: block;
 }
 
-.VPHome .VPFeatures .items > .item:nth-child(1) .VPFeature .box > .VPImage {
+.VPHome .VPFeatures .items > .item:nth-child(-n + 3) .VPFeature .box > .VPImage {
   float: left;
   margin: 0 16px 8px 0;
 }
 
-.VPHome .VPFeatures .items > .item:nth-child(1) .VPFeature .title {
+.VPHome .VPFeatures .items > .item:nth-child(-n + 3) .VPFeature .title {
   padding-top: 4px;
 }
 
-.VPHome .VPFeatures .items > .item:nth-child(1) .VPFeature .link-text {
+.VPHome .VPFeatures .items > .item:nth-child(-n + 3) .VPFeature .link-text {
   clear: both;
 }
 
