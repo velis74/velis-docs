@@ -79,6 +79,13 @@
       "docsWorkspace": "docs"
     },
     {
+      "name": "taskwire",
+      "type": "dist",
+      "submodule": "libs/taskwire",
+      "distOutput": "docs/.vitepress/dist",
+      "docsWorkspace": "docs"
+    },
+    {
       "name": "vue-i18n-python",
       "type": "dist",
       "submodule": "libs/vue-i18n-python",

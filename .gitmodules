@@ -46,3 +46,7 @@
 	path = libs/vue-i18n-python
 	url = https://github.com/velis74/vue-i18n-python
 	ignore = untracked
+[submodule "libs/taskwire"]
+	path = libs/taskwire
+	url = https://github.com/velis74/taskwire
+	ignore = untracked

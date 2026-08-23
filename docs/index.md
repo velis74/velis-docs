@@ -26,6 +26,17 @@ features:
              with a frozen wire spec and conformance fixtures.
     link: /muxws/
     linkText: Read docs
+  - title: taskwire
+    icon:
+      src: /taskwire/taskwire-icon.svg
+      alt: taskwire
+      width: 64
+      height: 64
+    details: Progress reporting and awaitable dialogs for long-running server-side operations, in Python and
+             TypeScript. Nested progress, dialogs the worker blocks on, cooperative cancellation and collectable
+             results, over local, REST or muxws transport.
+    link: /taskwire/
+    linkText: Read docs
   - title: vue-cached-icon
     details: A caching icon loader for Vue with emphasis on CDN loading. Supports Ionicons, Material Design Icons,
              Font Awesome, custom providers, SVG literals and URLs. Renders sanitised SVG with currentColor support.
