@@ -1,30 +1,30 @@
 [submodule "libs/vitepress-plugin-crosslinks"]
 	path = libs/vitepress-plugin-crosslinks
-	url = git@github.com:velis74/vitepress-plugin-crosslinks.git
+	url = https://github.com/velis74/vitepress-plugin-crosslinks
 	ignore = untracked
 [submodule "libs/vue-ionicon"]
 	path = libs/vue-ionicon
-	url = git@github.com:velis74/vue-cached-icon.git
+	url = https://github.com/velis74/vue-cached-icon
 	ignore = untracked
 [submodule "libs/dynamicforms/vue-forms"]
 	path = libs/dynamicforms/vue-forms
-	url = git@github.com:dynamicforms/vue-forms.git
+	url = https://github.com/dynamicforms/vue-forms
 	ignore = untracked
 [submodule "libs/dynamicforms/vuetify-inputs"]
 	path = libs/dynamicforms/vuetify-inputs
-	url = git@github.com:dynamicforms/vuetify-inputs.git
+	url = https://github.com/dynamicforms/vuetify-inputs
 	ignore = untracked
 [submodule "libs/dynamicforms/vuetify-modal-form-kit"]
 	path = libs/dynamicforms/vuetify-modal-form-kit
-	url = git@github.com:dynamicforms/vuetify-modal-form-kit.git
+	url = https://github.com/dynamicforms/vuetify-modal-form-kit
 	ignore = untracked
 [submodule "libs/dynamicforms/vue-grid"]
 	path = libs/dynamicforms/vue-grid
-	url = git@github.com:dynamicforms/vue-grid.git
+	url = https://github.com/dynamicforms/vue-grid
 	ignore = untracked
 [submodule "libs/dynamicforms/fastapi-viewsets"]
 	path = libs/dynamicforms/fastapi-viewsets
-	url = git@github.com:dynamicforms/fastapi-viewsets.git
+	url = https://github.com/dynamicforms/fastapi-viewsets
 	ignore = untracked
 [submodule "libs/configurable-redlock"]
 	path = libs/configurable-redlock
