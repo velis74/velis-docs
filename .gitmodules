@@ -4,7 +4,7 @@
 	ignore = untracked
 [submodule "libs/vue-ionicon"]
 	path = libs/vue-ionicon
-	url = git@github.com:velis74/vue-ionicon.git
+	url = git@github.com:velis74/vue-cached-icon.git
 	ignore = untracked
 [submodule "libs/dynamicforms/vue-forms"]
 	path = libs/dynamicforms/vue-forms
