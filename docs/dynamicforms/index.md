@@ -35,6 +35,11 @@ features:
              ViewSet library with Python mixins for FastAPI on the backend and TypeScript bindings for Vue.
     link: /dynamicforms/fastapi-viewsets/
     linkText: Read docs
+  - title: translatable
+    details: Translatable strings for the DynamicForms libraries. Each library declares English defaults; the
+             application connects its own translation function (vue-i18n, i18next or any t) once per library.
+    link: /dynamicforms/translatable
+    linkText: Read docs
 ---
 
 ## About DynamicForms
@@ -52,3 +57,4 @@ renders it, validates it, and handles submission for you.
 | [vuetify-modal-form-kit](/dynamicforms/vuetify-modal-form-kit/) | Programmatic dialog & modal form management | [Docs](/dynamicforms/vuetify-modal-form-kit/) |
 | [vue-grid](/dynamicforms/vue-grid/) | Data grid component for tabular data display | [Docs](/dynamicforms/vue-grid/) |
 | [fastapi-viewsets](/dynamicforms/fastapi-viewsets/) | Full-stack viewsets for FastAPI and Vue/TypeScript | [Docs](/dynamicforms/fastapi-viewsets/) |
+| [translatable](/dynamicforms/translatable) | Connects the libraries' built-in strings to the application's translations | [Docs](/dynamicforms/translatable) |
