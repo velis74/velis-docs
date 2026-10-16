@@ -10,7 +10,7 @@ Skupna VitePress dokumentacija za vse Velis open-source projekte/knjižnice.
 
 ## Dva tipa submodulov
 
-1. **`type: "readme"`** — samo dokumentacija (readme.md); kopira se v `docs/<ime>.md`
+1. **`type: "readme"`** — samo dokumentacija (readme.md); kopira se v `docs/<ime>.md` (z `group` v `docs/<group>/<ime>.md`)
 2. **`type: "dist"`** — workspace projekt z lastnim build-om (docs:build); dist output se kopira v `dist/<ime>/`
 
 ## Konfiguracija (`libs.config.json`)
@@ -24,7 +24,9 @@ Seznam knjižnic v polju `libs`. Vsak vnos vsebuje:
 ### Tip `readme`
 
 - `readme` — Pot do README datoteke znotraj submodula (npr. `"README.md"` ali `"readme.md"`)
-- `extraFiles` (opcijsko) — Seznam dodatnih datotek (slike, gif) za kopiranje v `docs/` (npr. `["demo.gif"]`)
+- `group` (opcijsko) — Podmapa v `docs/` (npr. `"dynamicforms"`); za vsako tako podmapo mora `.gitignore`
+  izključiti kopirane `*.md` razen `index.md` (glej `/docs/dynamicforms/*.md`)
+- `extraFiles` (opcijsko) — Seznam dodatnih datotek (slike, gif) za kopiranje v `docs/` oz. `docs/<group>/` (npr. `["demo.gif"]`)
 
 ### Tip `dist`
 

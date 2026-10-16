@@ -57,6 +57,12 @@ features:
              "silent skip" to bypass locked code blocks without try/except, and Redis-based lock contention statistics.
     link: /configurable-redlock
     linkText: Read docs
+  - title: db-name-to-idx-mapper
+    details: Maps names to sequential indices kept in a JSON config file, for Redis/Valkey database numbers and
+             similar name-to-number assignments. Python API, and a CLI that runs redis-cli and other tools with
+             the database name in place of its index.
+    link: /db-name-to-idx-mapper
+    linkText: Read docs
   - title: incremental-coverage-check
     details: A GitHub Action that fails a pull request when the lines it changes are not covered by tests.
              Grades only the diff, merges multiple coverage formats, and posts self-updating reports.

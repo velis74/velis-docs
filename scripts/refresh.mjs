@@ -63,15 +63,14 @@ function runStreamed(label, cmd, cwd) {
 
 function processReadmeLib(lib) {
   const src = join(root, lib.submodule, lib.readme);
-  const dest = join(root, 'docs', `${lib.name}.md`);
-  mkdirSync(dirname(dest), { recursive: true });
-  writeFileSync(dest, stripRepoFileLinks(readFileSync(src, 'utf-8'), lib.extraFiles ?? []));
-  console.log(`  copied ${lib.submodule}/${lib.readme} → docs/${lib.name}.md`);
+  const destRelative = lib.group ? `docs/${lib.group}` : 'docs';
+  const destDir = join(root, ...destRelative.split('/'));
+  mkdirSync(destDir, { recursive: true });
+  writeFileSync(join(destDir, `${lib.name}.md`), stripRepoFileLinks(readFileSync(src, 'utf-8'), lib.extraFiles ?? []));
+  console.log(`  copied ${lib.submodule}/${lib.readme} → ${destRelative}/${lib.name}.md`);
   for (const extra of lib.extraFiles ?? []) {
-    const extraSrc = join(root, lib.submodule, extra);
-    const extraDest = join(root, 'docs', extra);
-    copyFileSync(extraSrc, extraDest);
-    console.log(`  copied ${lib.submodule}/${extra} → docs/${extra}`);
+    copyFileSync(join(root, lib.submodule, extra), join(destDir, extra));
+    console.log(`  copied ${lib.submodule}/${extra} → ${destRelative}/${extra}`);
   }
 }
 

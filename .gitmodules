@@ -50,3 +50,11 @@
 	path = libs/taskwire
 	url = https://github.com/velis74/taskwire
 	ignore = untracked
+[submodule "libs/dynamicforms/translatable"]
+	path = libs/dynamicforms/translatable
+	url = https://github.com/dynamicforms/translatable
+	ignore = untracked
+[submodule "libs/db-name-to-idx-mapper"]
+	path = libs/db-name-to-idx-mapper
+	url = https://github.com/velis74/db-name-to-idx-mapper
+	ignore = untracked

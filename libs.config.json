@@ -54,6 +54,13 @@
       "docsWorkspace": "docs"
     },
     {
+      "name": "translatable",
+      "type": "readme",
+      "group": "dynamicforms",
+      "submodule": "libs/dynamicforms/translatable",
+      "readme": "readme.md"
+    },
+    {
       "name": "configurable-redlock",
       "type": "readme",
       "submodule": "libs/configurable-redlock",
@@ -91,6 +98,12 @@
       "submodule": "libs/vue-i18n-python",
       "distOutput": "docs/.vitepress/dist",
       "docsWorkspace": "docs"
+    },
+    {
+      "name": "db-name-to-idx-mapper",
+      "type": "readme",
+      "submodule": "libs/db-name-to-idx-mapper",
+      "readme": "README.md"
     }
   ]
 }
