@@ -11,6 +11,8 @@ coverage
 !/docs/index.md
 /docs/dynamicforms/*.md
 !/docs/dynamicforms/index.md
+/docs/vab/*
+!/docs/vab/index.md
 /docs/public/dynamicforms/
 /docs/public/allowances/
 /docs/public/muxws/

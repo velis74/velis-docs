@@ -58,3 +58,7 @@
 	path = libs/db-name-to-idx-mapper
 	url = https://github.com/velis74/db-name-to-idx-mapper
 	ignore = untracked
+[submodule "libs/vab"]
+	path = libs/vab
+	url = git@github.com:velis-doo/auto-brightness.git
+	ignore = untracked

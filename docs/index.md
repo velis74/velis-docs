@@ -83,3 +83,8 @@ features:
     link: /vue-i18n-python/
     linkText: Read docs
 ---
+
+## Apps
+
+**[Velis Auto Brightness](/vab/)** — an Android app that sets screen brightness from the light sensor or camera
+along a brightness curve you can see and edit. [Manual](/vab/manual) · [Changelog](/vab/changelog)

@@ -2,11 +2,20 @@ import { defineConfig } from 'vitepress';
 import { createReadStream, existsSync, readFileSync, statSync } from 'fs';
 import { dirname, extname, join, resolve } from 'path';
 import { fileURLToPath } from 'url';
+import { readmePagePath, readmePages } from '../../scripts/readme-pages.mjs';
 // import vuetify from 'vite-plugin-vuetify';
 
 const __dir = dirname(fileURLToPath(import.meta.url));
 const publicRoot = resolve(__dir, '../public');
 const libsConfig = JSON.parse(readFileSync(resolve(__dir, '../../libs.config.json'), 'utf-8'));
+
+// Strani zasebnih knjižnic manjkajo, kadar build nima dostopa do njihovega repozitorija; linki nanje takrat ne
+// smejo ustaviti builda.
+const missingPrivatePages: RegExp[] = libsConfig.libs
+  .filter((lib: any) => lib.private)
+  .flatMap((lib: any) => readmePages(lib).map((page: any) => readmePagePath(lib, page)))
+  .filter((path: string) => !existsSync(resolve(__dir, `..${path}.md`)))
+  .map((path: string) => new RegExp(`^${path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(\\.html)?(#.*)?$`));
 
 const MIME: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
@@ -70,7 +79,8 @@ export default defineConfig({
     /^https?:\/\/localhost/,
     // README-ji submodulov kažejo na datoteke poleg sebe v izvornem repozitoriju (npr. ./LICENSE),
     // ki jih v dokumentacijo ne kopiramo
-    /^(\.\/)?LICENSE$/
+    /^(\.\/)?LICENSE$/,
+    ...missingPrivatePages,
   ],
   themeConfig: {
     logo: '/images/logo_icon.png',
@@ -84,6 +94,16 @@ export default defineConfig({
           text: 'DynamicForms',
           items: [
             { text: 'Overview', link: '/dynamicforms/' },
+          ],
+        },
+      ],
+      '/vab/': [
+        {
+          text: 'Velis Auto Brightness',
+          items: [
+            { text: 'Overview', link: '/vab/' },
+            { text: 'Manual', link: '/vab/manual' },
+            { text: 'Changelog', link: '/vab/changelog' },
           ],
         },
       ],

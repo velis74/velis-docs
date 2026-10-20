@@ -1,7 +1,8 @@
 import { readFileSync, writeFileSync, copyFileSync, mkdirSync, cpSync, rmSync, existsSync } from 'fs';
-import { dirname, join } from 'path';
+import { basename, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { execSync, spawn } from 'child_process';
+import { readmePages } from './readme-pages.mjs';
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const config = JSON.parse(readFileSync(join(root, 'libs.config.json'), 'utf-8'));
@@ -11,14 +12,30 @@ const targetLib = scriptArgs.includes('--lib')
   ? scriptArgs[scriptArgs.indexOf('--lib') + 1]
   : scriptArgs.find((arg) => !arg.startsWith('-')) ?? null;
 
+// Zasebnih submodulov (`private: true`) brez dostopa do repozitorija ni mogoče posodobiti. Build se nadaljuje
+// z obstoječim checkoutom, če ga ni, pa brez strani te knjižnice.
+function updateSubmodules(libs) {
+  const publicPaths = libs.filter((lib) => !lib.private).map((lib) => lib.submodule);
+  if (publicPaths.length) {
+    execSync(`git submodule update --init --remote --force ${publicPaths.join(' ')}`, { cwd: root, stdio: 'inherit' });
+  }
+  for (const lib of libs.filter((l) => l.private)) {
+    try {
+      execSync(`git submodule update --init --remote --force ${lib.submodule}`, { cwd: root, stdio: 'inherit' });
+    } catch {
+      console.warn(`  ${lib.name}: private submodule ${lib.submodule} could not be updated`);
+    }
+  }
+}
+
 if (!distOnly && !targetLib) {
   console.log('Updating git submodules...');
-  execSync('git submodule update --init --remote --force', { cwd: root, stdio: 'inherit' });
+  updateSubmodules(config.libs);
 } else if (targetLib) {
   const lib = config.libs.find(l => l.name === targetLib);
   if (lib) {
     console.log(`Updating git submodule for ${targetLib}...`);
-    execSync(`git submodule update --init --remote --force ${lib.submodule}`, { cwd: root, stdio: 'inherit' });
+    updateSubmodules([lib]);
   } else {
     console.error(`Library ${targetLib} not found in libs.config.json`);
     process.exit(1);
@@ -63,27 +80,61 @@ function runStreamed(label, cmd, cwd) {
 
 // Naslov in opis strani (<title>, meta description) za iskalnike pridejo iz libs.config.json, ker README
 // nima frontmatterja. JSON niz je veljaven YAML niz v dvojnih narekovajih.
-function withFrontmatter(markdown, lib) {
+function withFrontmatter(markdown, page) {
   const fields = ['title', 'description']
-    .filter((key) => lib[key])
-    .map((key) => `${key}: ${JSON.stringify(lib[key])}\n`)
+    .filter((key) => page[key])
+    .map((key) => `${key}: ${JSON.stringify(page[key])}\n`)
     .join('');
   if (!fields) return markdown;
   if (markdown.startsWith('---\n')) return `---\n${fields}${markdown.slice(4)}`;
   return `---\n${fields}---\n\n${markdown}`;
 }
 
+function compareVersions(a, b) {
+  const pa = a.split('.').map(Number);
+  const pb = b.split('.').map(Number);
+  for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
+    const diff = (pa[i] ?? 0) - (pb[i] ?? 0);
+    if (diff) return diff;
+  }
+  return 0;
+}
+
+// Changelog vodi tudi verzijo v delu, z datumom, kot da bi bila že izdana. Izdana verzija se prebere iz datoteke
+// v submodulu (`releasedVersion.file`, prva skupina regexa `releasedVersion.pattern`, npr. versionName v
+// build.gradle); naslov višje verzije dobi namesto datuma oznako "(unreleased)".
+function markUnreleased(markdown, lib, page) {
+  if (!page.releasedVersion) return markdown;
+  const { file, pattern } = page.releasedVersion;
+  const match = readFileSync(join(root, lib.submodule, file), 'utf-8').match(new RegExp(pattern));
+  if (!match) throw new Error(`${lib.name}: released version not found in ${lib.submodule}/${file}`);
+  return markdown.replace(/^(#{1,6}) (\d+(?:\.\d+)*)(?=\s|$).*$/gm, (line, hashes, version) =>
+    compareVersions(version, match[1]) > 0 ? `${hashes} ${version} (unreleased)` : line
+  );
+}
+
 function processReadmeLib(lib) {
-  const src = join(root, lib.submodule, lib.readme);
+  const pages = readmePages(lib);
+  if (lib.private && pages.some((page) => !existsSync(join(root, lib.submodule, page.readme)))) {
+    console.warn(`  ${lib.name}: private submodule ${lib.submodule} is not checked out, its pages are skipped`);
+    return;
+  }
   const destRelative = lib.group ? `docs/${lib.group}` : 'docs';
   const destDir = join(root, ...destRelative.split('/'));
   mkdirSync(destDir, { recursive: true });
-  const markdown = stripRepoFileLinks(readFileSync(src, 'utf-8'), lib.extraFiles ?? []);
-  writeFileSync(join(destDir, `${lib.name}.md`), withFrontmatter(markdown, lib));
-  console.log(`  copied ${lib.submodule}/${lib.readme} → ${destRelative}/${lib.name}.md`);
+  // Dodatne datoteke pristanejo poleg strani, zato jih strani linkajo z imenom datoteke. `assetUrlPrefix` je
+  // shema, s katero jih vir naslavlja namesto relativne poti (npr. asset:// v Android assets).
+  const extraNames = (lib.extraFiles ?? []).map((extra) => basename(extra));
+  for (const page of pages) {
+    let markdown = readFileSync(join(root, lib.submodule, page.readme), 'utf-8');
+    if (lib.assetUrlPrefix) markdown = markdown.replaceAll(`](${lib.assetUrlPrefix}`, '](./');
+    markdown = markUnreleased(stripRepoFileLinks(markdown, extraNames), lib, page);
+    writeFileSync(join(destDir, `${page.name}.md`), withFrontmatter(markdown, page));
+    console.log(`  copied ${lib.submodule}/${page.readme} → ${destRelative}/${page.name}.md`);
+  }
   for (const extra of lib.extraFiles ?? []) {
-    copyFileSync(join(root, lib.submodule, extra), join(destDir, extra));
-    console.log(`  copied ${lib.submodule}/${extra} → ${destRelative}/${extra}`);
+    copyFileSync(join(root, lib.submodule, extra), join(destDir, basename(extra)));
+    console.log(`  copied ${lib.submodule}/${extra} → ${destRelative}/${basename(extra)}`);
   }
 }
 

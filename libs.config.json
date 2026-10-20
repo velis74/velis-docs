@@ -117,6 +117,38 @@
       "readme": "README.md",
       "title": "db-name-to-idx-mapper: Redis database numbers by name",
       "description": "Python library and CLI that assigns stable Redis/Valkey database numbers to names, so applications on one host never collide on a database index."
+    },
+    {
+      "name": "vab",
+      "type": "readme",
+      "private": true,
+      "group": "vab",
+      "submodule": "libs/vab",
+      "assetUrlPrefix": "asset://",
+      "extraFiles": [
+        "app/src/main/assets/manual-main-graph.png",
+        "app/src/main/assets/manual-drawer.png",
+        "app/src/main/assets/manual-notification.png",
+        "app/src/main/assets/manual-widget.png"
+      ],
+      "pages": [
+        {
+          "name": "manual",
+          "readme": "app/src/main/assets/manual.md",
+          "title": "Velis Auto Brightness manual: auto brightness app for Android",
+          "description": "Manual for Velis Auto Brightness, the Android app that sets screen brightness from the light sensor or camera along a brightness curve you can edit."
+        },
+        {
+          "name": "changelog",
+          "readme": "app/src/main/assets/changelog.md",
+          "title": "Velis Auto Brightness changelog",
+          "description": "What changed in each release of Velis Auto Brightness for Android, including the version in development.",
+          "releasedVersion": {
+            "file": "app/build.gradle",
+            "pattern": "versionName \"([^\"]+)\""
+          }
+        }
+      ]
     }
   ]
 }
