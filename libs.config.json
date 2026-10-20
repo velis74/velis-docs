@@ -1,17 +1,22 @@
 {
+  "siteUrl": "https://docs.velis.si",
   "libs": [
     {
       "name": "vitepress-plugin-crosslinks",
       "type": "readme",
       "submodule": "libs/vitepress-plugin-crosslinks",
-      "readme": "readme.md"
+      "readme": "readme.md",
+      "title": "vitepress-plugin-crosslinks: links between VitePress sites",
+      "description": "VitePress plugin that resolves links to other documentation sites at build time. Base URLs come from config and can be overridden per environment."
     },
     {
       "name": "vue-cached-icon",
       "type": "readme",
       "submodule": "libs/vue-ionicon",
       "readme": "README.md",
-      "extraFiles": ["demo.gif"]
+      "extraFiles": ["demo.gif"],
+      "title": "vue-cached-icon: cached SVG icon component for Vue",
+      "description": "Vue icon component that loads Ionicons, Material Design Icons, Font Awesome, URLs or SVG literals by name, caches each icon once and sanitises the SVG."
     },
     {
       "name": "vue-forms",
@@ -58,19 +63,25 @@
       "type": "readme",
       "group": "dynamicforms",
       "submodule": "libs/dynamicforms/translatable",
-      "readme": "readme.md"
+      "readme": "readme.md",
+      "title": "translatable: i18n for DynamicForms libraries",
+      "description": "Connects the built-in strings of the DynamicForms Vue libraries to the application's translation function: vue-i18n, i18next or any t()."
     },
     {
       "name": "configurable-redlock",
       "type": "readme",
       "submodule": "libs/configurable-redlock",
-      "readme": "README.md"
+      "readme": "README.md",
+      "title": "configurable-redlock: Redis distributed lock for Python",
+      "description": "Python Redis distributed lock (Redlock) with one timeout setting for wait, skip or wait N seconds, silent skip of locked blocks and lock contention statistics."
     },
     {
       "name": "incremental-coverage-check",
       "type": "readme",
       "submodule": "libs/incremental-coverage-check",
-      "readme": "README.md"
+      "readme": "README.md",
+      "title": "Incremental coverage check: GitHub Action for diff coverage",
+      "description": "GitHub Action that fails a pull request when its changed lines are not covered by tests. Merges coverage.py, Cobertura, istanbul, Clover and LCOV reports."
     },
     {
       "name": "allowances",
@@ -103,7 +114,9 @@
       "name": "db-name-to-idx-mapper",
       "type": "readme",
       "submodule": "libs/db-name-to-idx-mapper",
-      "readme": "README.md"
+      "readme": "README.md",
+      "title": "db-name-to-idx-mapper: Redis database numbers by name",
+      "description": "Python library and CLI that assigns stable Redis/Valkey database numbers to names, so applications on one host never collide on a database index."
     }
   ]
 }

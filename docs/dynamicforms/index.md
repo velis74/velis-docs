@@ -1,5 +1,7 @@
 ---
 layout: home
+title: DynamicForms — Vue 3 forms, Vuetify inputs, dialogs and data grid
+description: DynamicForms is a set of Vue 3 libraries for reactive forms and validation, Vuetify inputs, promise-based dialogs, a data grid with responsive row layouts and FastAPI viewsets.
 
 hero:
   name: "DynamicForms"
@@ -26,8 +28,9 @@ features:
     link: /dynamicforms/vuetify-modal-form-kit/
     linkText: Read docs
   - title: vue-grid
-    details: A Vue 3 data grid component for DynamicForms. Display, sort, filter, and paginate tabular data
-             with seamless integration into the DynamicForms ecosystem.
+    details: A Vue 3 data grid with responsive row layouts. Each row is a CSS grid card whose layout follows
+             the container width, from a single table line to a multi-line card. Virtual scrolling, sorting,
+             filtering, row selection and custom cell renderers.
     link: /dynamicforms/vue-grid/
     linkText: Read docs
   - title: fastapi-viewsets
@@ -55,6 +58,6 @@ renders it, validates it, and handles submission for you.
 | [vue-forms](/dynamicforms/vue-forms/) | Core form rendering and validation | [Docs](/dynamicforms/vue-forms/) |
 | [vuetify-inputs](/dynamicforms/vuetify-inputs/) | Vuetify-based visual input components | [Docs](/dynamicforms/vuetify-inputs/) |
 | [vuetify-modal-form-kit](/dynamicforms/vuetify-modal-form-kit/) | Programmatic dialog & modal form management | [Docs](/dynamicforms/vuetify-modal-form-kit/) |
-| [vue-grid](/dynamicforms/vue-grid/) | Data grid component for tabular data display | [Docs](/dynamicforms/vue-grid/) |
+| [vue-grid](/dynamicforms/vue-grid/) | Vue 3 data grid with responsive row layouts and virtual scrolling | [Docs](/dynamicforms/vue-grid/) |
 | [fastapi-viewsets](/dynamicforms/fastapi-viewsets/) | Full-stack viewsets for FastAPI and Vue/TypeScript | [Docs](/dynamicforms/fastapi-viewsets/) |
 | [translatable](/dynamicforms/translatable) | Connects the libraries' built-in strings to the application's translations | [Docs](/dynamicforms/translatable) |
