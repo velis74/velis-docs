@@ -31,6 +31,19 @@ Seznam knjižnic v polju `libs`. Vsak vnos vsebuje:
 - `extraFiles` (opcijsko) — Seznam dodatnih datotek (slike, gif) za kopiranje v `docs/` oz. `docs/<group>/` (npr. `["demo.gif"]`)
 - `title`, `description` — Naslov (`<title>`) in meta description strani za iskalnike; `refresh` ju vpiše v
   frontmatter kopiranega README-ja. Naslov naj vsebuje besede, po katerih se knjižnico išče, ne samo njeno ime.
+- `pages` (opcijsko) — Več strani iz istega submodula, namesto `readme`/`title`/`description` na vnosu: seznam
+  `{ name, readme, title, description, releasedVersion? }`; vsaka gre v `docs/[<group>/]<name>.md`. Datoteke iz
+  `extraFiles` pristanejo poleg strani pod svojim imenom (brez poti v submodulu).
+- `releasedVersion` (opcijsko, na strani) — `{ file, pattern }`: izdana verzija je prva skupina regexa `pattern` v
+  datoteki `file` submodula (npr. `versionName` v `app/build.gradle`); naslovi changeloga z višjo verzijo dobijo
+  `(unreleased)` namesto datuma.
+- `assetUrlPrefix` (opcijsko) — Shema, s katero vir naslavlja `extraFiles` (npr. `asset://`); zamenja se z `./`.
+
+### Zasebni submoduli
+
+`private: true` označi knjižnico v zasebnem repozitoriju (submodule prek SSH). Brez dostopa `refresh` njen submodule
+preskoči z opozorilom, njene strani manjkajo, linki nanje pa ne ustavijo builda (`ignoreDeadLinks` v
+`docs/.vitepress/config.ts`). Deploy klonira in požene `refresh` na kontrolerju, ki ima dostop.
 
 ### Tip `dist`
 

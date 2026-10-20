@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync, readdirSync, existsSync } from 'fs';
 import { dirname, join, relative } from 'path';
 import { fileURLToPath } from 'url';
 import { execFileSync } from 'child_process';
+import { readmePagePath, readmePages } from './readme-pages.mjs';
 
 // Zapiše dist/sitemap.xml z vsemi stranmi končnega builda: hub strani in vse dist podstrani knjižnic.
 // Seznam strani je izpeljan iz dist/, zato se nove, preimenovane ali odstranjene strani odrazijo same.
@@ -39,10 +40,10 @@ function lastCommitDate(cwd, file) {
 function lastmod(path) {
   if (!path.endsWith('/') && !path.endsWith('.html')) return null;
   const page = path.endsWith('/') ? `${path}index` : path.slice(0, -'.html'.length);
-  const readmeLib = config.libs.find(
-    (lib) => lib.type === 'readme' && page === (lib.group ? `/${lib.group}/${lib.name}` : `/${lib.name}`),
-  );
-  if (readmeLib) return lastCommitDate(join(root, readmeLib.submodule), readmeLib.readme);
+  for (const lib of config.libs.filter((l) => l.type === 'readme')) {
+    const source = readmePages(lib).find((p) => readmePagePath(lib, p) === page);
+    if (source) return lastCommitDate(join(root, lib.submodule), source.readme);
+  }
   const source = join('docs', `${page.slice(1)}.md`);
   return existsSync(join(root, source)) ? lastCommitDate(root, source) : null;
 }
