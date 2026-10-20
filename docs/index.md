@@ -1,5 +1,8 @@
 ---
 layout: home
+title: Velis Docs — open-source libraries for Vue 3, Python, FastAPI and Django
+titleTemplate: false
+description: Documentation for Velis open-source libraries — DynamicForms for Vue 3, muxws WebSocket multiplexing, taskwire progress reporting, allowances quotas, vue-i18n for Python and more.
 
 hero:
   name: "Velis Docs"

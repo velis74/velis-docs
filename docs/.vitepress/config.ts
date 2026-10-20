@@ -59,7 +59,13 @@ function servePublicDistPlugin() {
 export default defineConfig({
   title: 'Velis Docs',
   titleTemplate: ':title - Velis Docs',
-  description: 'Documentation hub for Velis projects',
+  description: 'Documentation for Velis open-source libraries for Vue 3, Python, FastAPI and Django',
+  // Ista stran je dosegljiva na več URL-jih (npr. /dynamicforms/ in /dynamicforms/index.html); canonical določi,
+  // katerega iskalnik indeksira.
+  transformHead({ pageData }) {
+    const path = pageData.relativePath.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '.html');
+    return [['link', { rel: 'canonical', href: `${libsConfig.siteUrl}/${path}` }]];
+  },
   ignoreDeadLinks: [
     /^https?:\/\/localhost/,
     // README-ji submodulov kažejo na datoteke poleg sebe v izvornem repozitoriju (npr. ./LICENSE),

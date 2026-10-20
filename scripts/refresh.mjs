@@ -61,12 +61,25 @@ function runStreamed(label, cmd, cwd) {
   });
 }
 
+// Naslov in opis strani (<title>, meta description) za iskalnike pridejo iz libs.config.json, ker README
+// nima frontmatterja. JSON niz je veljaven YAML niz v dvojnih narekovajih.
+function withFrontmatter(markdown, lib) {
+  const fields = ['title', 'description']
+    .filter((key) => lib[key])
+    .map((key) => `${key}: ${JSON.stringify(lib[key])}\n`)
+    .join('');
+  if (!fields) return markdown;
+  if (markdown.startsWith('---\n')) return `---\n${fields}${markdown.slice(4)}`;
+  return `---\n${fields}---\n\n${markdown}`;
+}
+
 function processReadmeLib(lib) {
   const src = join(root, lib.submodule, lib.readme);
   const destRelative = lib.group ? `docs/${lib.group}` : 'docs';
   const destDir = join(root, ...destRelative.split('/'));
   mkdirSync(destDir, { recursive: true });
-  writeFileSync(join(destDir, `${lib.name}.md`), stripRepoFileLinks(readFileSync(src, 'utf-8'), lib.extraFiles ?? []));
+  const markdown = stripRepoFileLinks(readFileSync(src, 'utf-8'), lib.extraFiles ?? []);
+  writeFileSync(join(destDir, `${lib.name}.md`), withFrontmatter(markdown, lib));
   console.log(`  copied ${lib.submodule}/${lib.readme} → ${destRelative}/${lib.name}.md`);
   for (const extra of lib.extraFiles ?? []) {
     copyFileSync(join(root, lib.submodule, extra), join(destDir, extra));
