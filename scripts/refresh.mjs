@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync, copyFileSync, mkdirSync, cpSync, rmSync, e
 import { basename, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { execSync, spawn } from 'child_process';
-import { readmePages } from './readme-pages.mjs';
+import { demoPath, readmePages } from './readme-pages.mjs';
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const config = JSON.parse(readFileSync(join(root, 'libs.config.json'), 'utf-8'));
@@ -138,6 +138,38 @@ function processReadmeLib(lib) {
   }
 }
 
+// A submodule bump can change dependency ranges (e.g. a peer requirement) between commits.
+// A leftover node_modules/package-lock.json from the previous checkout can pin versions that
+// no longer satisfy the new package.json, so npm install has to start from a clean slate.
+async function npmInstall(lib) {
+  const submoduleDir = join(root, lib.submodule);
+  rmSync(join(submoduleDir, 'node_modules'), { recursive: true, force: true });
+  rmSync(join(submoduleDir, 'package-lock.json'), { force: true });
+  await runStreamed(lib.name, 'npm install', submoduleDir);
+}
+
+// Builds the demo (`demo.script` with --base) and copies `demo.output` to docs/public/[<group>/]<name>/demo/.
+async function buildDemo(lib) {
+  const submoduleDir = join(root, lib.submodule);
+  const urlBase = demoPath(lib);
+  const destRelative = `docs/public${urlBase.slice(0, -1)}`;
+  const destDir = join(root, ...destRelative.split('/'));
+  await runStreamed(lib.name, `npm run ${lib.demo.script} -- --base ${urlBase}`, submoduleDir);
+  if (existsSync(destDir)) rmSync(destDir, { recursive: true });
+  mkdirSync(destDir, { recursive: true });
+  cpSync(join(submoduleDir, ...lib.demo.output.split('/')), destDir, { recursive: true });
+  console.log(`  copied ${lib.submodule}/${lib.demo.output} → ${destRelative}`);
+}
+
+async function processReadmeDemo(lib) {
+  if (lib.private && !existsSync(join(root, lib.submodule, 'package.json'))) {
+    console.warn(`  ${lib.name}: private submodule ${lib.submodule} is not checked out, its demo is skipped`);
+    return;
+  }
+  await npmInstall(lib);
+  await buildDemo(lib);
+}
+
 async function processDistLib(lib) {
   const submoduleDir = join(root, lib.submodule);
   const urlBase = lib.group ? `/${lib.group}/${lib.name}/` : `/${lib.name}/`;
@@ -148,34 +180,32 @@ async function processDistLib(lib) {
   const buildCmd = lib.docsWorkspace
     ? `npm run docs:build -w ${lib.docsWorkspace} -- --base ${urlBase}`
     : `npm run docs:build -- --base ${urlBase}`;
-  // A submodule bump can change dependency ranges (e.g. a peer requirement) between commits.
-  // A leftover node_modules/package-lock.json from the previous checkout can pin versions that
-  // no longer satisfy the new package.json, so npm install has to start from a clean slate.
-  rmSync(join(submoduleDir, 'node_modules'), { recursive: true, force: true });
-  rmSync(join(submoduleDir, 'package-lock.json'), { force: true });
-  await runStreamed(lib.name, 'npm install', submoduleDir);
+  await npmInstall(lib);
   await runStreamed(lib.name, buildCmd, submoduleDir);
   const builtDir = join(submoduleDir, ...(lib.distOutput ?? '.vitepress/dist').split('/'));
   if (existsSync(destDir)) rmSync(destDir, { recursive: true });
   mkdirSync(destDir, { recursive: true });
   cpSync(builtDir, destDir, { recursive: true });
   console.log(`  copied ${lib.submodule}/${lib.distOutput ?? '.vitepress/dist'} → ${destRelative}`);
+  if (lib.demo) await buildDemo(lib);
 }
 
-const libsToProcess = config.libs.filter((lib) => {
-  if (targetLib && lib.name !== targetLib) return false;
-  if (lib.type === 'readme' && distOnly) return false;
-  return true;
-});
+const libsToProcess = config.libs.filter((lib) => !targetLib || lib.name === targetLib);
 
-for (const lib of libsToProcess.filter((l) => l.type === 'readme')) {
-  processReadmeLib(lib);
+if (!distOnly) {
+  for (const lib of libsToProcess.filter((l) => l.type === 'readme')) {
+    processReadmeLib(lib);
+  }
 }
 
-const distLibs = libsToProcess.filter((l) => l.type === 'dist');
-const results = await Promise.allSettled(distLibs.map((lib) => processDistLib(lib)));
+// Builds into docs/public/: dist libraries and the demos of readme libraries.
+const builds = [
+  ...libsToProcess.filter((l) => l.type === 'dist').map((lib) => ({ lib, run: processDistLib })),
+  ...libsToProcess.filter((l) => l.type === 'readme' && l.demo).map((lib) => ({ lib, run: processReadmeDemo })),
+];
+const results = await Promise.allSettled(builds.map(({ lib, run }) => run(lib)));
 const failures = results
-  .map((result, i) => ({ result, lib: distLibs[i] }))
+  .map((result, i) => ({ result, lib: builds[i].lib }))
   .filter(({ result }) => result.status === 'rejected');
 
 if (failures.length) {

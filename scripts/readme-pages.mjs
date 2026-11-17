@@ -8,3 +8,8 @@ export function readmePages(lib) {
 export function readmePagePath(lib, page) {
   return lib.group ? `/${lib.group}/${page.name}` : `/${page.name}`;
 }
+
+// URL path of a library's demo (`demo` in libs.config.json), e.g. /vue-cached-icon/demo/.
+export function demoPath(lib) {
+  return lib.group ? `/${lib.group}/${lib.name}/demo/` : `/${lib.name}/demo/`;
+}

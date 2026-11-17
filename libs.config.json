@@ -15,6 +15,7 @@
       "submodule": "libs/vue-ionicon",
       "readme": "README.md",
       "extraFiles": ["demo.gif"],
+      "demo": { "script": "demo:build", "output": "demo/dist" },
       "title": "vue-cached-icon: cached SVG icon component for Vue",
       "description": "Vue icon component that loads Ionicons, Material Design Icons, Font Awesome, URLs or SVG literals by name, caches each icon once and sanitises the SVG."
     },

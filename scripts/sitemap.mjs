@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync, readdirSync, existsSync } from 'fs';
 import { dirname, join, relative } from 'path';
 import { fileURLToPath } from 'url';
 import { execFileSync } from 'child_process';
-import { readmePagePath, readmePages } from './readme-pages.mjs';
+import { demoPath, readmePagePath, readmePages } from './readme-pages.mjs';
 
 // Zapiše dist/sitemap.xml z vsemi stranmi končnega builda: hub strani in vse dist podstrani knjižnic.
 // Seznam strani je izpeljan iz dist/, zato se nove, preimenovane ali odstranjene strani odrazijo same.
@@ -13,6 +13,8 @@ const distDir = join(root, 'dist');
 
 // Strani, ki niso vsebina: 404 in razvojni readme.md, ki ga dist knjižnice objavijo poleg dokumentacije.
 const EXCLUDED = [/(^|\/)404\.html$/, /^(.+\/)?readme\.html$/i];
+// Library demos are applications, not documentation pages.
+const demoPaths = config.libs.filter((lib) => lib.demo).map(demoPath);
 
 function htmlFiles(dir) {
   return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -53,6 +55,7 @@ const escapeXml = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(
 const paths = htmlFiles(distDir)
   .map(urlPath)
   .filter((path) => !EXCLUDED.some((pattern) => pattern.test(path.slice(1))))
+  .filter((path) => !demoPaths.some((prefix) => path.startsWith(prefix)))
   .sort();
 
 if (!paths.length) {

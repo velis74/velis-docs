@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress';
 import { createReadStream, existsSync, readFileSync, statSync } from 'fs';
 import { dirname, extname, join, resolve } from 'path';
 import { fileURLToPath } from 'url';
-import { readmePagePath, readmePages } from '../../scripts/readme-pages.mjs';
+import { demoPath, readmePagePath, readmePages } from '../../scripts/readme-pages.mjs';
 // import vuetify from 'vite-plugin-vuetify';
 
 const __dir = dirname(fileURLToPath(import.meta.url));
@@ -36,9 +36,12 @@ const MIME: Record<string, string> = {
 // VitePress's own plugins, so our static-file handler wins over VitePress's
 // indexHtmlMiddleware which would otherwise swallow sub-project routes.
 function servePublicDistPlugin() {
-  const prefixes: string[] = libsConfig.libs
-    .filter((l: any) => l.type === 'dist')
-    .map((l: any) => (l.group ? `/${l.group}/${l.name}/` : `/${l.name}/`));
+  const prefixes: string[] = [
+    ...libsConfig.libs
+      .filter((l: any) => l.type === 'dist')
+      .map((l: any) => (l.group ? `/${l.group}/${l.name}/` : `/${l.name}/`)),
+    ...libsConfig.libs.filter((l: any) => l.demo).map(demoPath),
+  ];
 
   return {
     name: 'serve-public-dist',
