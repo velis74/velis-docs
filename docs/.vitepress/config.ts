@@ -9,8 +9,8 @@ const __dir = dirname(fileURLToPath(import.meta.url));
 const publicRoot = resolve(__dir, '../public');
 const libsConfig = JSON.parse(readFileSync(resolve(__dir, '../../libs.config.json'), 'utf-8'));
 
-// Strani zasebnih knjižnic manjkajo, kadar build nima dostopa do njihovega repozitorija; linki nanje takrat ne
-// smejo ustaviti builda.
+// Pages of private libraries are missing when the build has no access to their repository; links to them
+// must not fail the build.
 const missingPrivatePages: RegExp[] = libsConfig.libs
   .filter((lib: any) => lib.private)
   .flatMap((lib: any) => readmePages(lib).map((page: any) => readmePagePath(lib, page)))
@@ -72,16 +72,16 @@ export default defineConfig({
   title: 'Velis Docs',
   titleTemplate: ':title - Velis Docs',
   description: 'Documentation for Velis open-source libraries for Vue 3, Python, FastAPI and Django',
-  // Ista stran je dosegljiva na več URL-jih (npr. /dynamicforms/ in /dynamicforms/index.html); canonical določi,
-  // katerega iskalnik indeksira.
+  // A page is reachable at several URLs (e.g. /dynamicforms/ and /dynamicforms/index.html); canonical names
+  // the one search engines index.
   transformHead({ pageData }) {
     const path = pageData.relativePath.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '.html');
     return [['link', { rel: 'canonical', href: `${libsConfig.siteUrl}/${path}` }]];
   },
   ignoreDeadLinks: [
     /^https?:\/\/localhost/,
-    // README-ji submodulov kažejo na datoteke poleg sebe v izvornem repozitoriju (npr. ./LICENSE),
-    // ki jih v dokumentacijo ne kopiramo
+    // Submodule READMEs link to files next to them in the source repository (e.g. ./LICENSE),
+    // which are not copied into the docs
     /^(\.\/)?LICENSE$/,
     ...missingPrivatePages,
   ],

@@ -12,8 +12,8 @@ const targetLib = scriptArgs.includes('--lib')
   ? scriptArgs[scriptArgs.indexOf('--lib') + 1]
   : scriptArgs.find((arg) => !arg.startsWith('-')) ?? null;
 
-// Zasebnih submodulov (`private: true`) brez dostopa do repozitorija ni mogoče posodobiti. Build se nadaljuje
-// z obstoječim checkoutom, če ga ni, pa brez strani te knjižnice.
+// A private submodule (`private: true`) cannot be updated without access to its repository. The build then
+// uses the existing checkout, or skips the library's pages when there is none.
 function updateSubmodules(libs) {
   const publicPaths = libs.filter((lib) => !lib.private).map((lib) => lib.submodule);
   if (publicPaths.length) {
@@ -42,17 +42,16 @@ if (!distOnly && !targetLib) {
   }
 }
 
-// README-ji submodulov kažejo na datoteke poleg sebe v izvornem repozitoriju (LICENSE, CONTRIBUTING, ...),
-// ki jih v dokumentacijo ne kopiramo. V buildani dokumentaciji naj to ostane samo besedilo, ne link.
+// Submodule READMEs link to files next to them in the source repository (LICENSE, CONTRIBUTING, ...),
+// which are not copied into the docs. Such links are reduced to their text.
 function stripRepoFileLinks(markdown, extraFiles) {
   return markdown.replace(/\[([^\]]+)\]\((?:\.\/)?([A-Za-z0-9_.-]+)\)/g, (match, text, target) =>
     target.endsWith('.md') || extraFiles.includes(target) ? match : text
   );
 }
 
-// npm install/build za dist knjižnice traja od nekaj do nekaj deset sekund; teh je lahko precej,
-// zato tečejo vzporedno namesto ena za drugo. Izpis vsakega ukaza je prefiksiran z imenom knjižnice,
-// ker se vrstice vzporednih procesov na stdout prepletajo.
+// Runs a command with each output line prefixed by the library name, so the interleaved output of
+// dist libraries built in parallel stays attributable.
 function runStreamed(label, cmd, cwd) {
   return new Promise((resolve, reject) => {
     const child = spawn(cmd, { cwd, shell: true });
@@ -78,8 +77,8 @@ function runStreamed(label, cmd, cwd) {
   });
 }
 
-// Naslov in opis strani (<title>, meta description) za iskalnike pridejo iz libs.config.json, ker README
-// nima frontmatterja. JSON niz je veljaven YAML niz v dvojnih narekovajih.
+// Writes the page title and description (<title>, meta description) from libs.config.json into the
+// frontmatter. A JSON string is a valid double-quoted YAML string.
 function withFrontmatter(markdown, page) {
   const fields = ['title', 'description']
     .filter((key) => page[key])
@@ -100,9 +99,9 @@ function compareVersions(a, b) {
   return 0;
 }
 
-// Changelog vodi tudi verzijo v delu, z datumom, kot da bi bila že izdana. Izdana verzija se prebere iz datoteke
-// v submodulu (`releasedVersion.file`, prva skupina regexa `releasedVersion.pattern`, npr. versionName v
-// build.gradle); naslov višje verzije dobi namesto datuma oznako "(unreleased)".
+// The changelog lists the version in development with a date, as if released. The released version is read from
+// a submodule file (`releasedVersion.file`, first group of the regex `releasedVersion.pattern`, e.g. versionName
+// in build.gradle); a heading with a higher version gets "(unreleased)" in place of its date.
 function markUnreleased(markdown, lib, page) {
   if (!page.releasedVersion) return markdown;
   const { file, pattern } = page.releasedVersion;
@@ -122,8 +121,8 @@ function processReadmeLib(lib) {
   const destRelative = lib.group ? `docs/${lib.group}` : 'docs';
   const destDir = join(root, ...destRelative.split('/'));
   mkdirSync(destDir, { recursive: true });
-  // Dodatne datoteke pristanejo poleg strani, zato jih strani linkajo z imenom datoteke. `assetUrlPrefix` je
-  // shema, s katero jih vir naslavlja namesto relativne poti (npr. asset:// v Android assets).
+  // Extra files are copied next to the pages, which link them by file name. `assetUrlPrefix` is the scheme the
+  // source uses for them in place of a relative path (e.g. asset:// for Android assets).
   const extraNames = (lib.extraFiles ?? []).map((extra) => basename(extra));
   for (const page of pages) {
     let markdown = readFileSync(join(root, lib.submodule, page.readme), 'utf-8');
