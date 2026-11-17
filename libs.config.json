@@ -105,6 +105,13 @@
       "docsWorkspace": "docs"
     },
     {
+      "name": "adorm",
+      "type": "dist",
+      "submodule": "libs/adorm",
+      "distOutput": "docs/.vitepress/dist",
+      "docsWorkspace": "docs"
+    },
+    {
       "name": "vue-i18n-python",
       "type": "dist",
       "submodule": "libs/vue-i18n-python",

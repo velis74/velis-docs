@@ -2,7 +2,7 @@
 layout: home
 title: Velis Docs — open-source libraries for Vue 3, Python, FastAPI and Django
 titleTemplate: false
-description: Documentation for Velis open-source libraries — DynamicForms for Vue 3, muxws WebSocket multiplexing, taskwire progress reporting, allowances quotas, vue-i18n for Python and more.
+description: Documentation for Velis open-source libraries — DynamicForms for Vue 3, muxws WebSocket multiplexing, taskwire progress reporting, adorm async ORM, allowances quotas, vue-i18n for Python and more.
 
 hero:
   name: "Velis Docs"
@@ -44,6 +44,17 @@ features:
              TypeScript. Nested progress, dialogs the worker blocks on, cooperative cancellation and collectable
              results, over local, REST or muxws transport.
     link: /taskwire/
+    linkText: Read docs
+  - title: adorm
+    icon:
+      src: /adorm/adorm-icon.svg
+      alt: adorm
+      width: 64
+      height: 64
+    details: Asynchronous database ORM for Python. One async API for queries and model operations, with
+             query building that needs no connection, pydantic models, and pluggable drivers for the Django
+             ORM and native PostgreSQL.
+    link: /adorm/
     linkText: Read docs
   - title: vue-cached-icon
     details: A caching icon loader for Vue with emphasis on CDN loading. Supports Ionicons, Material Design Icons,
