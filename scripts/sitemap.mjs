@@ -4,14 +4,14 @@ import { fileURLToPath } from 'url';
 import { execFileSync } from 'child_process';
 import { readmePagePath, readmePages } from './readme-pages.mjs';
 
-// Zapiše dist/sitemap.xml z vsemi stranmi končnega builda: hub strani in vse dist podstrani knjižnic.
-// Seznam strani je izpeljan iz dist/, zato se nove, preimenovane ali odstranjene strani odrazijo same.
+// Writes dist/sitemap.xml listing every page of the final build: hub pages and all dist subpages of libraries.
+// The page list is derived from dist/.
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const config = JSON.parse(readFileSync(join(root, 'libs.config.json'), 'utf-8'));
 const distDir = join(root, 'dist');
 
-// Strani, ki niso vsebina: 404 in razvojni readme.md, ki ga dist knjižnice objavijo poleg dokumentacije.
+// Pages that are not content: 404 and the developer readme.md that dist libraries publish next to their docs.
 const EXCLUDED = [/(^|\/)404\.html$/, /^(.+\/)?readme\.html$/i];
 
 function htmlFiles(dir) {
@@ -22,7 +22,7 @@ function htmlFiles(dir) {
   });
 }
 
-// index.html je kanonično dosegljiva kot imenik, ostale strani s končnico .html (tako jih linka VitePress).
+// index.html is canonical as its directory, other pages with the .html extension (as VitePress links them).
 function urlPath(file) {
   return '/' + relative(distDir, file).split('\\').join('/').replace(/(^|\/)index\.html$/, '$1');
 }
@@ -35,8 +35,8 @@ function lastCommitDate(cwd, file) {
   }
 }
 
-// lastmod je naveden samo za strani, ki imajo izvorno .md datoteko v tem repozitoriju ali v readme submodulu.
-// Dist podstrani ga nimajo, ker build output ne pove, iz katere izvorne datoteke je stran nastala.
+// lastmod is given only for pages with a source .md file in this repository or in a readme submodule.
+// Dist subpages have none: the build output does not identify a page's source file.
 function lastmod(path) {
   if (!path.endsWith('/') && !path.endsWith('.html')) return null;
   const page = path.endsWith('/') ? `${path}index` : path.slice(0, -'.html'.length);

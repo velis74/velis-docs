@@ -21,8 +21,6 @@ export default {
     };
   },
   Layout: () => {
-    return h(DefaultTheme.Layout, null, {
-      // lahko dodamo custom slote za layout, če bo potrebno
-    });
+    return h(DefaultTheme.Layout, null, {});
   },
 } satisfies Theme;
