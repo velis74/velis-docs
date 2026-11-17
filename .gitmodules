@@ -62,3 +62,7 @@
 	path = libs/vab
 	url = git@github.com:velis-doo/auto-brightness.git
 	ignore = untracked
+[submodule "libs/adorm"]
+	path = libs/adorm
+	url = https://github.com/velis74/adorm
+	ignore = untracked
