@@ -1,5 +1,6 @@
 {
-  // The VitePress configuration and theme, and the build scripts, type-checked and linted.
+  // Type-checks the VitePress configuration and theme; the JavaScript build scripts are included for module
+  // resolution only (no checkJs).
   "compilerOptions": {
     "module": "esnext",
     "moduleResolution": "bundler",
