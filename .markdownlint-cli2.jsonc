@@ -1,0 +1,14 @@
+{
+  "config": {
+    "MD013": { "line_length": 120, "tables": false, "code_blocks": false },
+    // a page carries its <title> in the front matter `title`, separate from its first heading
+    "MD025": { "front_matter_title": "" },
+    // the pages embed HTML
+    "MD033": false,
+    // VitePress builds heading anchors differently from markdownlint's GitHub slugs
+    "MD051": false
+  },
+  // the pages refresh.mjs copies from the submodules are git-ignored
+  "gitignore": true,
+  "ignores": ["libs/**"]
+}

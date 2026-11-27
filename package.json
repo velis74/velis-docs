@@ -15,9 +15,25 @@
     "refresh:dist": "node scripts/refresh.mjs --dist-only",
     "docs:dev": "npm run refresh:dist && npm run docs:dev -w docs",
     "docs:build": "npm run refresh && npm run docs:build -w docs && rm -rf dist && mv docs/.vitepress/dist/ dist && node scripts/sitemap.mjs",
-    "docs:preview": "npm run docs:preview -w docs"
+    "docs:preview": "npm run docs:preview -w docs",
+    "lint": "node scripts/lint.mjs"
   },
   "devDependencies": {
-    "@types/node": "^24.12.2"
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.6.11",
+    "@typescript-eslint/eslint-plugin": "^8.74.0",
+    "@typescript-eslint/parser": "^8.74.0",
+    "eslint": "^10.15.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-config-velis": "^3.0.1",
+    "eslint-import-resolver-typescript": "^4.4.5",
+    "eslint-plugin-import-x": "^4.18.1",
+    "eslint-plugin-prettier": "^5.5.7",
+    "eslint-plugin-unicorn": "^73.0.0",
+    "eslint-plugin-vue": "^10.12.1",
+    "markdownlint-cli2": "^0.24.2",
+    "prettier": "^3.10.1",
+    "typescript": "^5.9.3",
+    "vue-eslint-parser": "^10.4.2"
   }
 }
