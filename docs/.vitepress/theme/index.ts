@@ -17,7 +17,7 @@ const subProjectPrefixes: string[] = [
 
 export default {
   extends: DefaultTheme,
-  enhanceApp({ app, router }) {
+  enhanceApp({ router }) {
     router.onBeforeRouteChange = (to: string) => {
       if (subProjectPrefixes.some((p) => to.startsWith(p) || to + '/' === p)) {
         window.location.href = to;
