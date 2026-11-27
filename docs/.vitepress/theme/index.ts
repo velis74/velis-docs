@@ -1,11 +1,12 @@
-import { h } from 'vue'
-import type { Theme } from 'vitepress'
-import DefaultTheme from 'vitepress/theme'
-import 'vuetify/styles'
-import '@mdi/font/css/materialdesignicons.css'
-import './custom.css'
-import libsConfig from '../../../libs.config.json'
-import { demoPath } from '../../../scripts/readme-pages.mjs'
+import type { Theme } from 'vitepress';
+import DefaultTheme from 'vitepress/theme';
+import { h } from 'vue';
+
+import 'vuetify/styles';
+import '@mdi/font/css/materialdesignicons.css';
+import './custom.css';
+import libsConfig from '../../../libs.config.json';
+import { demoPath } from '../../../scripts/readme-pages.mjs';
 
 const subProjectPrefixes: string[] = [
   ...(libsConfig.libs as any[])
@@ -16,9 +17,9 @@ const subProjectPrefixes: string[] = [
 
 export default {
   extends: DefaultTheme,
-  enhanceApp({ app, router }) {
+  enhanceApp({ router }) {
     router.onBeforeRouteChange = (to: string) => {
-      if (subProjectPrefixes.some(p => to.startsWith(p) || to + '/' === p)) {
+      if (subProjectPrefixes.some((p) => to.startsWith(p) || to + '/' === p)) {
         window.location.href = to;
         return false;
       }

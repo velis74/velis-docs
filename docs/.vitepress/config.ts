@@ -1,7 +1,9 @@
-import { defineConfig } from 'vitepress';
 import { createReadStream, existsSync, readFileSync, statSync } from 'fs';
 import { dirname, extname, join, resolve } from 'path';
 import { fileURLToPath } from 'url';
+
+import { defineConfig } from 'vitepress';
+
 import { demoPath, readmePagePath, readmePages } from '../../scripts/readme-pages.mjs';
 // import vuetify from 'vite-plugin-vuetify';
 
@@ -49,12 +51,9 @@ function servePublicDistPlugin() {
     configureServer(server: any) {
       server.middlewares.use((req: any, res: any, next: any) => {
         const urlPath = (req.url ?? '').split('?')[0];
-        if (!prefixes.some(p => urlPath.startsWith(p) || urlPath + '/' === p)) return next();
+        if (!prefixes.some((p) => urlPath.startsWith(p) || urlPath + '/' === p)) return next();
 
-        const candidates = [
-          join(publicRoot, urlPath),
-          join(publicRoot, urlPath, 'index.html'),
-        ];
+        const candidates = [join(publicRoot, urlPath), join(publicRoot, urlPath, 'index.html')];
         for (const filePath of candidates) {
           if (existsSync(filePath) && statSync(filePath).isFile()) {
             res.setHeader('Content-Type', MIME[extname(filePath)] ?? 'application/octet-stream');
@@ -95,9 +94,7 @@ export default defineConfig({
       '/dynamicforms/': [
         {
           text: 'DynamicForms',
-          items: [
-            { text: 'Overview', link: '/dynamicforms/' },
-          ],
+          items: [{ text: 'Overview', link: '/dynamicforms/' }],
         },
       ],
       '/vab/': [
@@ -121,7 +118,6 @@ export default defineConfig({
     },
     ssr: {
       // noExternal: ['vuetify'],
-    }
+    },
   },
 });
-

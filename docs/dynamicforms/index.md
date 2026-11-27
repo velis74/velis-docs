@@ -54,7 +54,7 @@ renders it, validates it, and handles submission for you.
 ### Packages
 
 | Package | Description | Docs |
-|---------|-------------|------|
+| --- | --- | --- |
 | [vue-forms](/dynamicforms/vue-forms/) | Core form rendering and validation | [Docs](/dynamicforms/vue-forms/) |
 | [vuetify-inputs](/dynamicforms/vuetify-inputs/) | Vuetify-based visual input components | [Docs](/dynamicforms/vuetify-inputs/) |
 | [vuetify-modal-form-kit](/dynamicforms/vuetify-modal-form-kit/) | Programmatic dialog & modal form management | [Docs](/dynamicforms/vuetify-modal-form-kit/) |

@@ -1,0 +1,18 @@
+{
+  // Type-checks the VitePress configuration and theme; the JavaScript build scripts are included for module
+  // resolution only (no checkJs).
+  "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "target": "es2022",
+    "lib": ["es2022", "dom"],
+    "strict": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "types": ["node"]
+  },
+  "include": ["docs/.vitepress/**/*.ts", "scripts/**/*.mjs", "eslint.config.js"],
+  "exclude": ["docs/.vitepress/cache", "docs/.vitepress/dist"]
+}
