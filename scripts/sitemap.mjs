@@ -1,7 +1,8 @@
+import { execFileSync } from 'child_process';
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'fs';
 import { dirname, join, relative } from 'path';
 import { fileURLToPath } from 'url';
-import { execFileSync } from 'child_process';
+
 import { demoPath, readmePagePath, readmePages } from './readme-pages.mjs';
 
 // Writes dist/sitemap.xml listing every page of the final build: hub pages and all dist subpages of libraries.
@@ -26,7 +27,13 @@ function htmlFiles(dir) {
 
 // index.html is canonical as its directory, other pages with the .html extension (as VitePress links them).
 function urlPath(file) {
-  return '/' + relative(distDir, file).split('\\').join('/').replace(/(^|\/)index\.html$/, '$1');
+  return (
+    '/' +
+    relative(distDir, file)
+      .split('\\')
+      .join('/')
+      .replace(/(^|\/)index\.html$/, '$1')
+  );
 }
 
 function lastCommitDate(cwd, file) {
@@ -71,9 +78,9 @@ const entries = paths.map((path) => {
 
 writeFileSync(
   join(distDir, 'sitemap.xml'),
-  '<?xml version="1.0" encoding="UTF-8"?>\n'
-    + '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    + entries.join('')
-    + '</urlset>\n',
+  '<?xml version="1.0" encoding="UTF-8"?>\n' +
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+    entries.join('') +
+    '</urlset>\n',
 );
 console.log(`sitemap: ${paths.length} pages → dist/sitemap.xml`);

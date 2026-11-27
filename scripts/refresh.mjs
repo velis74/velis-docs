@@ -1,7 +1,8 @@
+import { execSync, spawn } from 'child_process';
 import { readFileSync, writeFileSync, copyFileSync, mkdirSync, cpSync, rmSync, existsSync } from 'fs';
 import { basename, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { execSync, spawn } from 'child_process';
+
 import { demoPath, readmePages } from './readme-pages.mjs';
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -10,7 +11,7 @@ const distOnly = process.argv.includes('--dist-only');
 const scriptArgs = process.argv.slice(2);
 const targetLib = scriptArgs.includes('--lib')
   ? scriptArgs[scriptArgs.indexOf('--lib') + 1]
-  : scriptArgs.find((arg) => !arg.startsWith('-')) ?? null;
+  : (scriptArgs.find((arg) => !arg.startsWith('-')) ?? null);
 
 // A private submodule (`private: true`) cannot be updated without access to its repository. The build then
 // uses the existing checkout, or skips the library's pages when there is none.
@@ -32,7 +33,7 @@ if (!distOnly && !targetLib) {
   console.log('Updating git submodules...');
   updateSubmodules(config.libs);
 } else if (targetLib) {
-  const lib = config.libs.find(l => l.name === targetLib);
+  const lib = config.libs.find((l) => l.name === targetLib);
   if (lib) {
     console.log(`Updating git submodule for ${targetLib}...`);
     updateSubmodules([lib]);
@@ -46,7 +47,7 @@ if (!distOnly && !targetLib) {
 // which are not copied into the docs. Such links are reduced to their text.
 function stripRepoFileLinks(markdown, extraFiles) {
   return markdown.replace(/\[([^\]]+)\]\((?:\.\/)?([A-Za-z0-9_.-]+)\)/g, (match, text, target) =>
-    target.endsWith('.md') || extraFiles.includes(target) ? match : text
+    target.endsWith('.md') || extraFiles.includes(target) ? match : text,
   );
 }
 
@@ -108,7 +109,7 @@ function markUnreleased(markdown, lib, page) {
   const match = readFileSync(join(root, lib.submodule, file), 'utf-8').match(new RegExp(pattern));
   if (!match) throw new Error(`${lib.name}: released version not found in ${lib.submodule}/${file}`);
   return markdown.replace(/^(#{1,6}) (\d+(?:\.\d+)*)(?=\s|$).*$/gm, (line, hashes, version) =>
-    compareVersions(version, match[1]) > 0 ? `${hashes} ${version} (unreleased)` : line
+    compareVersions(version, match[1]) > 0 ? `${hashes} ${version} (unreleased)` : line,
   );
 }
 
