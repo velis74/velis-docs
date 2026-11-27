@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      - run: npm ci
+      # eslint, markdownlint and tsc, report only.
+      - run: npm run lint
+      # Checks out every library submodule at its latest commit, builds their documentation and demos, then the hub.
+      # The private submodule (libs/vab) is not accessible here; its pages are skipped.
+      - run: npm run docs:build
+
+  all-green:
+    if: always()
+    needs: [node]
+    runs-on: ubuntu-latest
+    steps:
+      - if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
+        run: exit 1
