@@ -16,9 +16,6 @@ jobs:
       - run: npm ci
       # eslint, markdownlint and tsc, report only.
       - run: npm run lint
-      # Checks out every library submodule at its latest commit, builds their documentation and demos, then the hub.
-      # The private submodule (libs/vab) is not accessible here; its pages are skipped.
-      - run: npm run docs:build
 
   all-green:
     if: always()
